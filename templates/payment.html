@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-5 mx-auto mt-5">
+        <form method="post">
+            {% csrf_token %}
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <input type="radio" id="cod" name="payment" value="cod">
+                    <label for="cod"> Cash on Delivery</label>
+                </li>
+                <li class="list-group-item">
+                    <input type="radio" id="online" name="payment" value="online">
+                    <label for="online"> Online Payment</label>
+                </li>
+                <li class="list-group-item">
+                    <input type="submit" class="btn btn-secondary btn-block">
+                </li>
+            </ul>
+        </form>
+    </div>
+    </div>
+    </div>
+{% endblock %}

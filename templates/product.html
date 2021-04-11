@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="{{ object.image.url }}" alt="" height="90%" width="100%">
+        </div>
+        <div class="col-lg-8 mt-5">
+            <h3>{{ object.name }}</h3>
+            <p class="small">{{ object.brand }}</p>
+            <p class="small">{{ object.category }}</p>
+            {% if object.discount_price %}
+                <p class="lead text-muted"><del>Rs. {{ object.price }}</del> <span class="lead text-success font-weight-bold">Rs. {{ object.discount_price }}</span></p>
+            {% else %}
+                <p class="lead text-success font-weight-bold">Rs. {{ object.price }}</p>
+            {% endif %}
+            <a href="{{ object.get_add_to_cart }}" class="btn btn-success">Add to Cart</a>
+            <a href="" class="btn btn-info">Buy Now</a>
+        </div>
+    </div>
+    </div>
+    <div class="container">
+    <h3 class="text-info">Similar Products</h3>
+    <div class="row">
+    {% for releated_product in releated_products %}
+         <div class="col-lg-3">
+                <div class="card mt-3">
+                    <div class="card-body fa-border">
+                        <img src="{{ releated_product.image.url }}" alt="" style="height: 170px; width: 200px">
+                        <h4>{{ releated_product.name }}</h4>
+                        {% if releated_product.discount_price %}
+                            <p class="fa-bold"><del>Rs. {{ releated_product.price }}</del> <span class="text-success">{{ releated_product.discount_price }}</span></p>
+                            {% else %}
+                            <p>{{ releated_product.price }}</p>
+                        {% endif %}
+                        <a href="{{ releated_product.get_absolute_url }}" class="btn btn-success ">More..</a>
+                        <a href="{{ releated_product.get_add_to_cart }}" class="btn btn-info">Add to Cart</a>
+                    </div>
+                </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    </div>
+
+{% endblock %}

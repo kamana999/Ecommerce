@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+        <div class="container mt-3">
+        <div class="row">
+            {% for object in object_list %}
+                <div class="col-lg-3">
+                    <div class="card mt-3">
+                        <div class="card-body fa-border">
+                            <img src="{{ object.image.url }}" alt="" style="height: 220px; width: 200px">
+                            <h4>{{ object.name }}</h4>
+                            {% if object.discount_price %}
+                                <p class="fa-bold"><del class="text-muted">Rs. {{ object.price }}</del> <span class="text-success">{{ object.discount_price }}</span></p>
+                                {% else %}
+                                <p>{{ object.price }}</p>
+                            {% endif %}
+                            <a href="{{ object.get_absolute_url }}" class="btn btn-success btn-sm p-3">More..</a>
+                            <a href="{{ object.get_add_to_cart }}" class="btn btn-info btn-sm" style="margin-left: 30%;">Add to Cart</a>
+                        </div>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+{% endblock %}
