@@ -1,72 +1,156 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container mt-5">
-    <div class="row">
-        <div class="col-lg-7">
-            {% for foo in order.items.all %}
-                <div class="card mt-2 fa-border">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <img src="{{ foo.item.image.url }}" alt="" class="card-img-top">
-                            <a href="{% url 'ecom:remove-from-cart' foo.item.slug %}" class="btn btn-sm">-</a>
-                            <span>{{ foo.qty }}</span>
-                            <a href="{% url 'ecom:add-to-cart' foo.item.slug %}" class="btn btn-sm">+</a>
-                        </div>
-                        <div class="col-lg-10">
-                            <h4>{{ foo.item.name }}</h4>
-                            <p>Qty. {{ foo.qty }}</p>
-                             {% if foo.item.discount_price %}
-                                 <del><h6>Rs. {{foo.total_actual_ammount}}</h6></del>
-                                 <h6>Rs. {{ foo.total_discount_ammount }}</h6>
-                             {% else %}
-                                 <h6>Rs. {{ foo.total_actual_ammount }}</h6>
-                             {% endif %}
-                        <a href="{% url 'ecom:remove-item' foo.item.slug %}" class="btn btn-sm btn-danger"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/></svg></a>
-                        </div>
+      <div class="d-flex align-items-center">
+        <div class="container text-center mt-3">
+          <h3 class="mb-0">Shopping cart</h3>
+        </div>
+      </div>
+     <main>
+    <div class="container">
+    {% load cart_template_tags %}
+        <section class="mt-5 mb-4">
+            <div class="row">
+                <div class="col-lg-8">
+                <h5 class="mb-4">Cart (<span>{{ request.user|get_cart_count }}</span> items)</h5>
+                    {% for foo in order.items.all %}
+                    <div class="card wish-list mb-4">
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-md-5 col-lg-3 col-xl-3">
+                                    <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+                                        <img class="img-fluid w-100" src="{{ foo.item.image.url }}" alt="Sample">
+                                        <a href="#!">
+                                        <div class="mask waves-effect waves-light">
+                                            <img class="img-fluid w-100" src="{{ foo.item.image_high.url }}">
+                                          <div class="mask rgba-black-slight waves-effect waves-light"></div>
+                                        </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-lg-9 col-xl-9">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                              <h5>{{ foo.item.name }}</h5>
+                                              <p class="mb-3 text-muted text-uppercase small">{{ foo.item.category }}</p>
+                                              <p class="mb-2 text-muted text-uppercase small">Color: {{ foo.item.color }}</p>
+                                              <p class="mb-3 text-muted text-uppercase small">Size: M</p>
+                                                {% if foo.item.discount_price %}
+                                                    <h6>One Peice Price. <del>{{ foo.item.price }}</del></h6>
+                                                    <h6>Discount Price. {{foo.item.discount_price}}</h6>
+                                             {% else %}
+                                                 <h6>One Peice Price. {{ foo.item.price }}</h6>
+                                             {% endif %}
+                                            </div>
+                                            <div>
+                                                <div class="def-number-input number-input safari_only mb-0 w-100" style="border: 1px solid #ced4da">
+                                                    <a href="{% url 'shop:remove-from-cart' foo.item.slug %}" class="btn btn-sm"><span><strong><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.5 8a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5z"/></svg></strong></span></a>
+                                                    <span>{{ foo.qty }}</span>
+                                                    <a href="{% url 'shop:add-to-cart' foo.item.slug %}" class="btn btn-sm"><span><strong><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/><path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/></svg></strong></span></a>
+                                                </div>
+                                                <small id="passwordHelpBlock" class="form-text text-muted text-center">
+                                                    (Note, 1 piece)
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                              <a href="{% url 'shop:remove-item' foo.item.slug %}" type="button" class="btn btn-sm text-capitalizer mr-3"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/></svg>     Remove item </a>
+                                              <a href="{% url 'shop:wishlist_summary' %}" type="button" class="btn btn-sm btn-danger"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/></svg>  Move to wish list </a>
+                                            </div>
+                                            {% if foo.item.discount_price %}
+                                             <del><h6>Rs. {{foo.total_actual_ammount}}</h6></del>
+                                             <h6>Rs. {{ foo.total_discount_ammount }}</h6>
+                                         {% else %}
+                                             <h6><span><strong>Rs. {{ foo.total_actual_ammount }}</strong></span></h6>
+                                         {% endif %}
+                                            <p class="mb-0"><span><strong></strong></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mb-4">
+                        <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Do not delay the purchase, adding
+                          items to your cart does not mean booking them.</p>
+                    </div>
+                </div>
+                    {% endfor %}
+                    <div class="card mb-4">
+                    <div class="card-body">
+
+                        <h5 class="mb-4">Expected shipping delivery</h5>
+
+                        <p class="mb-0"> Thu., 12.03. - Mon., 16.03.</p>
+                    </div>
+            </div>
+                    <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="mb-4">We accept</h5>
+                        <img class="mr-2" width="45px" src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg" alt="Visa">
+                        <img class="mr-2" width="45px" src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg" alt="American Express">
+                        <img class="mr-2" width="45px" src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg" alt="Mastercard">
+                        <img class="mr-2" width="45px" src="https://z9t4u9f6.stackpathcdn.com/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png" alt="PayPal acceptance mark">
                     </div>
                 </div>
                 </div>
-            {% endfor %}
-            
-        </div>
-        <div class="col-lg-5">
-            <div class="card mt-2">
-                <div class="card-body">
-                    <div class="list-group">
-                        <li class="list-group-item  bg-info text-white text-center">Price Detail</li>
-                        <li class="list-group-item ">Total Ammount- <span class="float-right">₹ 000/-</span></li>
-                        {% if order.coupon %}
-                        <li class="list-group-item">Coupon Discount-({{ order.coupon.percentage }}) % <span class="float-right">₹ {{ order.get_coupon_ammount }} /-</span></li>
-                        {% endif %}
+                <div class="col-lg-4">
+                     <div class="card mb-4 mt-5">
+                        <div class="card-body">
+                            <h5 class="mb-3">The total amount of</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">Temporary amount
+                                    <span>₹ {{ order.grand_total }} /-</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">Shipping
+                                    <span>₹ 40</span>
+                                </li>
+                                {% if order.coupon %}
+                                     <li class="list-group-item d-flex justify-content-between align-items-center px-0" style="background: #f3e5f5 ">Coupon Discount-
+                                    <span>{{ order.coupon.percentage }}%</span>
+                                </li>
 
-                        <li class="list-group-item ">Discount Ammount- <span class="float-right">₹000/-</span></li>
-                        <li class="list-group-item ">Total saving- <span class="float-right">₹000/-</span></li>
-                        <li class="list-group-item ">Payable Amount- <span class="float-right">₹ {{ order.grand_total }} /-</span></li>
+                                {% endif %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">GST
+                                    <span>18 %</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                    <div>
+                                        <strong>The total amount of</strong>
+                                        <strong>
+                                            <p class="mb-0">(including VAT)</p>
+                                        </strong>
+                                    </div>
+                                    <span><strong>₹ {{ order.grand_total }}</strong></span>
+                                </li>
+                            </ul>
+                        <a href="{% url 'shop:checkout' %}" type="button" class="btn btn-primary btn-block waves-effect waves-light">go to checkout</a>
                     </div>
                 </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                <a class="dark-grey-text d-flex justify-content-between collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  Add a discount code (optional)
+                  <span><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg></span>
+                </a>
+                    {% if not order.coupon %}
+                <div class="collapse" id="collapseExample" style="">
+                  <div class="mt-3">
+                    <div class="md-form md-outline mb-0">
+                        <form action="{% url "shop:add-coupon" %}" method="post" class="d-flex">
+                        {% csrf_token %}
+                            {{ form.code }}
+                            <button class="btn btn-cyan btn-sm" type="submit">Submit</button>
+                        </form>
+                    </div>
+                      {% endif %}
+                  </div>
+                </div>
+              </div>
             </div>
-        <div class="row mt-5">
-            <div class="col-lg-6">
-                <a href="" class="btn btn-warning btn-block">Continue Shopping</a>
-            </div>
-            <div class="col-lg-6">
-                 <a href="{% url 'ecom:checkout' %}" class="btn btn-success btn-block">Checkout</a>
-            </div>
+          </div>
         </div>
-    {% if not order.coupon %}
-        <div class="card">
-            <div class="card-body">
-                <form action="{% url "ecom:add-coupon" %}" method="post" class="d-flex">
-                   {% csrf_token %}
-                    {{ form.code }}
-                    <input type="submit" class="btn btn-success">
-                </form>
-            </div>
-        </div>
+        </section>
+    </div>
+  </main>
 
-        {% endif %}
-        </div>
-    </div>
-    </div>
 {% endblock %}

@@ -1,25 +1,86 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container">
-    <div class="row">
-        <div class="col-lg-5 mx-auto mt-5">
-        <form method="post">
-            {% csrf_token %}
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <input type="radio" id="cod" name="payment" value="cod">
-                    <label for="cod"> Cash on Delivery</label>
-                </li>
-                <li class="list-group-item">
-                    <input type="radio" id="online" name="payment" value="online">
-                    <label for="online"> Online Payment</label>
-                </li>
-                <li class="list-group-item">
-                    <input type="submit" class="btn btn-secondary btn-block">
-                </li>
-            </ul>
-        </form>
-    </div>
-    </div>
-    </div>
+
+    <section class="mt-5 mb-4">
+          <div class="row">
+              <div class="col-lg-8 m-4">
+                  <div class="card wish-list pb-1">
+                      <div class="card-body">
+                          <h5 class="mb-2">Billing details</h5>
+                  <div class="md-form md-outline my-0">
+                    <input type="text" id="companyName" class="form-control mb-0">
+                    <label for="companyName">Name on Card</label>
+                  </div>
+
+                  <!-- Country -->
+                  <div class="d-flex flex-wrap">
+                    <div class="select-outline position-relative w-100">
+                      <select class="mdb-select md-form md-outline">
+                        <option value="" disabled="" selected="">Choose your option</option>
+                        <option value="1">India</option>
+                        <option value="2">USA</option>
+                        <option value="3">Britain</option>
+                      </select>
+                      <label>Country</label>
+                    </div>
+                  </div>
+
+                  <!-- Address Part 1 -->
+                  <div class="md-form md-outline mt-0">
+                    <input type="text" id="form14" placeholder="card no." class="form-control">
+                    <label for="form14" class="active">Card No.</label>
+                  </div>
+                  <div class="md-form md-outline">
+                    <input type="number" id="form18" class="form-control">
+                    <label for="form18">Phone</label>
+                  </div>
+
+                  <!-- Email address -->
+                  <div class="md-form md-outline">
+                    <input type="email" id="form19" class="form-control">
+                    <label for="form19">Email address</label>
+                  </div>
+
+                  <!-- Additional information -->
+                  <div class="md-form md-outline">
+                    <textarea id="form76" class="md-textarea form-control" rows="4"></textarea>
+                    <label for="form76">Additional information</label>
+                  </div>
+
+                  <div class="form-check pl-0 mb-4 mb-lg-0">
+                    <input type="checkbox" class="form-check-input filled-in" id="new3">
+                    <label class="form-check-label small text-uppercase card-link-secondary" for="new3">Create an
+                      account?</label>
+                  </div>
+
+                </div>
+              </div>
+              <!-- Card -->
+
+            </div>
+                <div class="col-lg-3 m-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <form method="post">
+                            {% csrf_token %}
+                                <ul class="list-group" style="border: None">
+                                    <li class="list-group-item">
+                                        <input type="radio" id="cod" name="payment" value="cod">
+                                        <label for="cod"> Cash on Delivery</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <input type="radio" id="online" name="payment" value="online">
+                                        <label for="online"> Online Payment</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <button type="submit" class="btn btn-primary btn-block waves-effect waves-light">Make
+                                        purchase</button>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 {% endblock %}

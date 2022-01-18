@@ -2,9 +2,12 @@
 {% block content %}
 <div class="container mt-5">
 <div class="row">
+
     <div class="col-lg-9 mx-auto">
+    <h3 class="text-center mb-3">My Orders</h3>
         {% for main in order %}
             <div class="card mb-3">
+
             <div class="card-header">
                 <span class="float-left">Order Id: 0000000{{ main.id }}</span>
                 <span class="float-right">Order Date: {{ main.ordered_date }}</span>

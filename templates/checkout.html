@@ -4,49 +4,51 @@
 <div class="container">
 <div class="row">
     <div class="col-lg-5">
-        <h3 class="text-info mt-2 text-center">Insert Address</h3>
-        <div class="card mt-3">
-            <div class="card-body p-3">
+        <div class="card mt-5">
+            <div class="card-body">
                 <form method="post">
-                    {% csrf_token %}
-                    {{ form|crispy }}
+                <p class="h4 text-center py-4">Address</p>
+                {% csrf_token %}
+                {{ form|crispy }}
                 <div class="mt-3">
                     <div class="row">
                         <div class="col-6">
-                            <a href="{% url 'ecom:homepage' %}" class="btn btn-info btn-block">Shopping More</a>
+                            <a href="{% url 'shop:homepage' %}" class="btn btn-cyan btn-block">Shopping More</a>
                         </div>
                         <div class="col-6">
-                            <input type="submit" class="btn btn-secondary btn-block" value="Next">
+                            <input type="submit" class="btn btn-mdb-color btn-block" value="Next">
                         </div>
                     </div>
-                </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
     <div class="col-lg-7">
-    <h3 class="text-info mt-2 text-center">Or Choose default one</h3>
-        <div class="card p-3 mt-3">
+        <div class="card mt-5">
+        <p class="h4 text-center py-4 mt-3">OR  ADD DEFAULT </p>
             <form method="post">
                 {% csrf_token %}
                     <div class="row">
                         {% for ad in address %}
-                        <div class="col-lg-4 p-2">
-                            <div class="card {% if ad.default %} bg-info text-white {% endif %}">
+                        <div class="col-6 p-5 pt-3">
+                            <div class="card {% if ad.default %} blue-gradient-rgba text-white {% endif %}">
                                 <div class="card-body">
-                                    <div class="custom-control custom-radio">
-                                        <input onchange="this.form.submit();" type="radio" class="custom-control-input" name="save_address" value="{{ ad.id }}">
-                                        <label for="" class="custom-control-label">
-                                            <h6>{{ ad.name }}</h6>
-                                            <p class="small m-0">
-                                                {{ ad.contact }}
-                                            </p>
-                                            <p class="small m-0">
-                                                {{ ad.landmark }}, {{ ad.city }} ({{ ad.state }})
-                                            </p>
-                                            <p class="small m-0">{{ ad.pin }}</p>
-                                        </label>
-                                    </div>
+                                    <div class="mt-1">
+                                        <div class="form-check form-check-inline pl-0">
+                                           <input onchange="this.form.submit();" type="radio"  class="form-check-input" name="save_address" value="{{ ad.id }}" id="add">
+                                            <label for="add" class="form-check-label text-uppercase card-link-secondary">
+                                                <h6>{{ ad.name }}</h6>
+                                                <p class="small m-0">
+                                                    {{ ad.contact }}
+                                                </p>
+                                                <p class="small m-0">
+                                                    {{ ad.landmark }}, {{ ad.city }} ({{ ad.state }})
+                                                </p>
+                                                <p class="small m-0">{{ ad.pin }}</p>
+                                            </label>
+                                        </div>
+                                      </div>
                                 </div>
                             </div>
                         </div>

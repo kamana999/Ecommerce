@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h3 style="font-size: 30px; color: #117a8b;margin-left:2%" class="text-uppercase text-center "><strong>Edit Reviews</strong></h3>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    {% if error %}
+                        <strong style="color:red;">{{ error }}</strong>
+                    {% endif %}
+                    <input type="submit" value="Edit Review" class="btn btn-danger">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

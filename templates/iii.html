@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <script src="{% static 'jqzoomer.1.0.js' %}"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="{% static 'jqzoomer.1.0.min.js' %}"></script>
+</head>
+<body>
+    <div class="demo">
+
+  <a href="{% static 'cat_high_res.jpg' %}">
+
+    <img src="{% static 'cat_low_res.jpg' %}">
+
+  </a>
+
+</div>
+    <script>
+        $(".demo").jqzoomer();
+
+    </script>
+</body>
+</html>
+<div class="col-lg-4 mt-3 mb-4">
+
+  <section>
+
+    <h5 class="mb-3" style="font-weight: 500;font-size: 25px">Decor</h5>
+
+
+  </section>

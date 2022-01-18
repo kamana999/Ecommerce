@@ -1,46 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container mt-3">
+    <div class="container-fluid mt-4 p-3">
     <div class="row">
-        <div class="col-lg-4">
-            <img src="{{ object.image.url }}" alt="" height="90%" width="100%">
+        <div class="col-sm-3">
+            {% include 'side.html' %}
         </div>
-        <div class="col-lg-8 mt-5">
-            <h3>{{ object.name }}</h3>
-            <p class="small">{{ object.brand }}</p>
-            <p class="small">{{ object.category }}</p>
-            {% if object.discount_price %}
-                <p class="lead text-muted"><del>Rs. {{ object.price }}</del> <span class="lead text-success font-weight-bold">Rs. {{ object.discount_price }}</span></p>
-            {% else %}
-                <p class="lead text-success font-weight-bold">Rs. {{ object.price }}</p>
-            {% endif %}
-            <a href="{{ object.get_add_to_cart }}" class="btn btn-success">Add to Cart</a>
-            <a href="" class="btn btn-info">Buy Now</a>
-        </div>
-    </div>
-    </div>
-    <div class="container">
-    <h3 class="text-info">Similar Products</h3>
-    <div class="row">
-    {% for releated_product in releated_products %}
-         <div class="col-lg-3">
-                <div class="card mt-3">
-                    <div class="card-body fa-border">
-                        <img src="{{ releated_product.image.url }}" alt="" style="height: 170px; width: 200px">
-                        <h4>{{ releated_product.name }}</h4>
-                        {% if releated_product.discount_price %}
-                            <p class="fa-bold"><del>Rs. {{ releated_product.price }}</del> <span class="text-success">{{ releated_product.discount_price }}</span></p>
-                            {% else %}
-                            <p>{{ releated_product.price }}</p>
-                        {% endif %}
-                        <a href="{{ releated_product.get_absolute_url }}" class="btn btn-success ">More..</a>
-                        <a href="{{ releated_product.get_add_to_cart }}" class="btn btn-info">Add to Cart</a>
+        <div class="col-sm-9">
+            <div class="container">
+                <div class="row">
+                    {% for p in page_obj %}
+                        <div class="col-sm-4 mt-5">
+                        <div class="card">
+                            <div class="view zoom overlay rounded z-depth-2">
+                            <img src="{{ p.image.url }}" alt="" class=" w-100" style="height: 300px">
+                            <a href="#">
+                                  <div class="mask waves-effect waves-dark">
+                                    <img class="img-fluid w-100" src="{{ p.image.url }}">
+                                    <div class="mask rgba-black-slight waves-effect waves-light"></div>
+                                  </div>
+                            </a>
+                        </div>
+                            <div class="card-body text-center pt-4">
+                            <h5>{{ p.name }}</h5>
+                            {% if p.discount_price %}
+                                <p class="">Price: <del class="text-muted"> <strong>{{ p.price }}</strong></del> <span class="text-success"><strong>{{ p.discount_price }}</strong></span></p>
+                                {% else %}
+                                <p class="m-0">Price:  {{ p.price }}</p>
+                            {% endif %}
+                            <a href="{{ p.get_add_to_cart }}" type="button" class="btn blue-gradient btn-sm mr-1 mb-2 waves-effect waves-light"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart3" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>  Add to cart</a>
+                            <a href="{{ p.get_absolute_url }}" type="button" class="btn aqua-gradient btn-sm mr-1 mb-2 waves-effect waves-light"> Detail</a>
+                            <a href="{{ p.get_wishlist }}" type="button" class="btn btn-danger btn-sm mr-1 mb-2 material-tooltip-main waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Add to wishlist"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/></svg></a>
+
+                        </div>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
+            </div>
+            {% if is_paginated %}
+            <nav aria-label="Page navigation example">
+                  <ul class="pagination pg-blue justify-content-center mt-5">
+                      {% if page_obj.has_previous %}
+                          <li class="page-item ">
+                            <a href="?page={{ page_obj.previous_page_number }}" class="page-link" tabindex="-1">Previous</a>
+                        </li>
+                      {% endif %}
+
+                    <li class="page-item"><a class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li>
+                  {% if page_obj.has_next %}
+                        <li class="page-item">
+                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a>
+                    </li>
+                  {% endif %}
+              </ul>
+            </nav>
+        {% endif %}
         </div>
-    {% endfor %}
     </div>
-
     </div>
-
 {% endblock %}

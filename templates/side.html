@@ -1,0 +1,114 @@
+        <h4 class="mb-4 pl-2" style="font-weight: 700;font-size: 30px">Type</h4>
+        <section>
+            {% for t  in type %}
+            <div class="text-muted small mb-3">
+              <p class="mb-1 pl-4" style=""><a href="{% url 'shop:type' t.id %}" class="card-link-secondary" style="color: #6c757d;transition: all .2s ease-in-out;text-decoration: none;cursor: pointer; background-color: transparent;font-size: 15px">{{ t.title }}</a><span class="float-left pr-3">&raquo;</span></p>
+            </div>
+        {% endfor %}
+        </section>
+
+        <h4 class="mb-4 pl-2" style="font-weight: 700;font-size: 30px">Categories</h4>
+        <section>
+            {% for c  in category %}
+            <div class="text-muted small mb-3">
+              <p class="mb-1 pl-4" style=""><a href="{% url 'shop:cat' c.id %}" class="card-link-secondary" style="color: #6c757d;transition: all .2s ease-in-out;text-decoration: none;cursor: pointer; background-color: transparent;font-size: 15px">{{ c.cat_title }}</a><span class="float-left pr-3">&raquo;</span></p>
+            </div>
+        {% endfor %}
+        </section>
+
+        <h4 class="mb-4 pl-2" style="font-weight: 700;font-size: 30px">Brand</h4>
+        <section>
+            {% for b  in brand %}
+            <div class="text-muted small mb-3">
+              <p class="mb-1 pl-4" style=""><a href="{% url 'shop:brand' b.id %}" class="card-link-secondary" style="color: #6c757d;transition: all .2s ease-in-out;text-decoration: none;cursor: pointer; background-color: transparent;font-size: 15px">{{ b.brand_name }}</a><span class="float-left pr-3">&raquo;</span></p>
+            </div>
+        {% endfor %}
+        </section>
+
+        <h4 class="mb-4 pl-2" style="font-weight: 700;font-size: 30px">Filter</h4>
+        <section>
+            <h6 class="font-weight-bold mb-3 mb-1 pl-4 text-muted">Price</h6>
+            <div class="d-flex justify-content-center my-4">
+              <div class="w-75">
+                  <input type="range" class="custom-range" id="rangeInput" name="rating" min="0" max="10000" value="0" step="100" oninput="ammount.value= rangeInput.value">
+              </div>
+              <span class="font-weight-bold text-dark ml-2 valueSpan2"><output name="ammount" id="ammount" for="rangeInput" class="font-weight-bold text-dark ml-2">0</output></span>
+            </div>
+        </section>
+        <section class="mb-4">
+                <h6 class="font-weight-bold mb-3  pl-4 text-muted">Color</h6>
+                <div class="btn-group btn-group-toggle btn-color-group d-block mt-n2 ml-3" data-toggle="buttons">
+                  <label class="btn rounded-circle white border-inset-grey p-3 m-2 waves-effect waves-light">
+                    <input type="checkbox" autocomplete="off">
+                  </label>
+                  <label class="btn rounded-circle grey p-3 m-2 waves-effect waves-light">
+                    <input type="checkbox" autocomplete="off">
+                  </label>
+                  <label class="btn rounded-circle black p-3 m-2 waves-effect waves-light">
+                    <input type="checkbox" autocomplete="off">
+                  </label>
+                  <label class="btn rounded-circle green p-3 m-2 waves-effect waves-light">
+                    <input type="checkbox" autocomplete="off">
+                  </label>
+                  <label class="btn rounded-circle blue p-3 m-2 waves-effect waves-light">
+                    <input type="checkbox" autocomplete="off">
+                  </label>
+                  <label class="btn rounded-circle purple p-3 m-2 waves-effect waves-light">
+                    <input type="checkbox" autocomplete="off">
+                  </label>
+                  <label class="btn rounded-circle yellow p-3 m-2 waves-effect waves-light">
+                    <input type="checkbox" autocomplete="off">
+                  </label>
+                  <label class="btn rounded-circle indigo p-3 m-2 active waves-effect waves-light">
+                    <input type="checkbox" checked="" autocomplete="off">
+                  </label>
+                  <label class="btn rounded-circle red p-3 m-2 waves-effect waves-light">
+                    <input type="checkbox" autocomplete="off">
+                  </label>
+                  <label class="btn rounded-circle orange p-3 m-2 waves-effect waves-light">
+                    <input type="checkbox" autocomplete="off">
+                  </label>
+                </div>
+
+              </section>
+
+        <section class="mb-4 p-5">
+                <h6 class="font-weight-bold mb-3 p-0 text-muted">Size</h6>
+                <div class="form-check pl-0 mb-3">
+                  <input type="checkbox" class="form-check-input filled-in" id="34">
+                  <label class="form-check-label small text-uppercase card-link-secondary" for="34">34</label>
+                </div>
+                <div class="form-check pl-0 mb-3">
+                  <input type="checkbox" class="form-check-input filled-in" id="36">
+                  <label class="form-check-label small text-uppercase card-link-secondary" for="36">36</label>
+                </div>
+                <div class="form-check pl-0 mb-3">
+                  <input type="checkbox" class="form-check-input filled-in" id="38">
+                  <label class="form-check-label small text-uppercase card-link-secondary" for="38">38</label>
+                </div>
+                <div class="form-check pl-0 mb-3">
+                  <input type="checkbox" class="form-check-input filled-in" id="40">
+                  <label class="form-check-label small text-uppercase card-link-secondary" for="40">40</label>
+                </div>
+                <a class="btn btn-link text-muted p-0 waves-effect waves-light" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  More
+                </a>
+                <div class="collapse pt-3" id="collapseExample">
+                  <div class="form-check pl-0 mb-3">
+                    <input type="checkbox" class="form-check-input filled-in" id="42">
+                    <label class="form-check-label small text-uppercase card-link-secondary" for="42">42</label>
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input type="checkbox" class="form-check-input filled-in" id="44">
+                    <label class="form-check-label small text-uppercase card-link-secondary" for="44">44</label>
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input type="checkbox" class="form-check-input filled-in" id="46">
+                    <label class="form-check-label small text-uppercase card-link-secondary" for="46">46</label>
+                  </div>
+                  <div class="form-check pl-0 mb-3">
+                    <input type="checkbox" class="form-check-input filled-in" id="50">
+                    <label class="form-check-label small text-uppercase card-link-secondary" for="50">50</label>
+                  </div>
+                </div>
+              </section>
